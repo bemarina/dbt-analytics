@@ -43,3 +43,14 @@ order by
     -- not sure what negative hours recouped means: it's just one row, we'll remove it
     -- write python function/macros to remove the dollar sign of the others
     
+    -- other singular tests, to make sure I understand the data:
+    -- expected_lost sales is expected hours*sales_per_hour?
+
+    -- is expected_workable always positive?
+    -- is expected_workable always the same as expected lost sales when workable is true?
+    -- is expected workable 0 when workable is false?
+    -- can there be 2 rows for the same product on the same day?
+    -- in either case, calculate total recouped/gain per day+product (this is what I'll plot)
+    -- is sales recouped always the same as hours recouped*sales per hour?
+
+    
