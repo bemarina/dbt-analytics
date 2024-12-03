@@ -44,13 +44,8 @@ order by
     -- is expected_workable_hours always positive? YES
     -- is expected workable 0 when workable is false? No, expected_workable_hours is never 0.
     -- can there be 2 rows for the same product on the same day? YES, but one UPC only
+        
     
-    -- plot sales_recouped_dollars per day+product 
-    
-    -- is sales recouped always the same as hours recouped*sales per hour?
-    -- expected_lost sales is expected hours*sales_per_hour?
-
-    -- 12 columns
     -- add audit columns (macro) !!
 
     -- If hours_recouped=0 then it is NOT workable!

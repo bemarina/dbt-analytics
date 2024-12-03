@@ -24,7 +24,7 @@ select distinct
    
 from stage_data
 -- where upc = 3530100664
--- where cnt = 1
+where cnt > 1
 -- where expected_workable_loss_dollars = 0
 -- where sales_recouped_dollars <= 0
 -- where workable=false
