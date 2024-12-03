@@ -1,6 +1,5 @@
 with
-    all_data as (
-
+    raw_data as (
         select
             date as event_date,
             upc as upc,
@@ -9,22 +8,20 @@ with
             worked as worked,
             `Out of Stock Duration` as out_of_stock_duration,
             `Expected Out of Stock Duration` as expected_out_of_stock_duration,
-            ` Expected Lost Sales ` as expected_lost_sales,
-            ` Expected Workable Lost Sales ` as expected_workable_lost_sales,
+            -- ` Expected Lost Sales ` as expected_lost_sales,
+            replace(` Expected Lost Sales `,"$","") as expected_loss_dollars,
+            -- ` Expected Workable Lost Sales ` as expected_workable_lost_sales,
+            replace(` Expected Workable Lost Sales `,"$","") as expected_workable_loss_dollars,
             `Hours Recouped` as hours_recouped,
-            ` Sales Per Hour ` as sales_per_hour,
-            ` Recouped Sales ` as sales_recouped
-
+            -- ` Sales Per Hour ` as sales_per_hour,
+            replace(` Sales Per Hour `,"$","") as sales_per_hour_dollars,
+            -- ` Recouped Sales ` as sales_recouped,
+            replace(` Recouped Sales `,"$","") as sales_recouped_dollars,
         from {{ source("raw_data", "focal_systems_raw1") }}
-        where `Hours Recouped` > 0
     ),
-
-    final as (select * from all_data)
-
+    final as (select * from raw_data)
 select *
-
 from final
-
 order by
     event_date,
     upc
@@ -41,16 +38,20 @@ order by
     -- with negative hours recouped:
     -- out of stock duration was LONGER than expected
     -- not sure what negative hours recouped means: it's just one row, we'll remove it
-    -- write python function/macros to remove the dollar sign of the others
+    -- to do from Monday 12/2
+    -- other singular tests: 
     
-    -- other singular tests, to make sure I understand the data:
+    -- is expected_workable_hours always positive? YES
+    -- is expected workable 0 when workable is false? No, expected_workable_hours is never 0.
+    -- can there be 2 rows for the same product on the same day? YES, but one UPC only
+    
+    -- plot sales_recouped_dollars per day+product 
+    
+    -- is sales recouped always the same as hours recouped*sales per hour?
     -- expected_lost sales is expected hours*sales_per_hour?
 
-    -- is expected_workable always positive?
-    -- is expected_workable always the same as expected lost sales when workable is true?
-    -- is expected workable 0 when workable is false?
-    -- can there be 2 rows for the same product on the same day?
-    -- in either case, calculate total recouped/gain per day+product (this is what I'll plot)
-    -- is sales recouped always the same as hours recouped*sales per hour?
+    -- 12 columns
+    -- add audit columns (macro) !!
 
+    -- If hours_recouped=0 then it is NOT workable!
     
