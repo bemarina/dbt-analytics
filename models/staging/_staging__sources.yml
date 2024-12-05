@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: raw_data
+    database: raw-data-442223  
+    schema: focal_systems  
+    tables:
+      - name: focal_systems_raw1
+        columns:
+          - name: UPC
+            tests:
+              - not_null
+          - name: worked
+            tests:
+              - not_null
+        freshness: 
+          error_after:
+            count: 2000
+            period: day
+          warn_after:
+            count: 10
+            period: day
+        loaded_at_field: myDate
+
+        
+
+  

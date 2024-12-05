@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: out_of_stock
+    columns:
+      - name: event_date
+        tests:
+          - not_null
+      - name: upc
+        tests:
+          - not_null
+      - name: dsd
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - 'true'
+                - 'false'
+              quote: false
+      - name: workable
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - 'true'
+                - 'false'
+              quote: false
+      - name: worked
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - 'true'
+                - 'false'
+              quote: false
+      - name: hours_recouped
+        tests:
+          - not_null
+        
+            
+              
+              
